@@ -1,0 +1,8 @@
+name = "arquitecturajazz"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "src"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ArquitecturaJazz"
+database_id = "dd4fed81-43d1-4d14-a2aa-b57d89a7bef6"

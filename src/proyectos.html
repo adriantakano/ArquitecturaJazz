@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portafolio de proyectos — ARQUMA Proyectos. Diseño residencial, comercial y edificios.">
+  <title>Proyectos — ARQUMA</title>
+
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/cormorant-garamond-v36-latin-300.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/dm-sans-v15-latin-regular.woff2">
+
+  <style>
+    @font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/cormorant-garamond-v36-latin-300.woff2') format('woff2')}
+    @font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/cormorant-garamond-v36-latin-regular.woff2') format('woff2')}
+    @font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/cormorant-garamond-v36-latin-500.woff2') format('woff2')}
+    @font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/cormorant-garamond-v36-latin-600.woff2') format('woff2')}
+    @font-face{font-family:'DM Sans';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/dm-sans-v15-latin-300.woff2') format('woff2')}
+    @font-face{font-family:'DM Sans';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/dm-sans-v15-latin-regular.woff2') format('woff2')}
+    @font-face{font-family:'DM Sans';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/dm-sans-v15-latin-500.woff2') format('woff2')}
+
+    :root{--clr-olive:#4E583C;--clr-olive-dark:#3A4229;--clr-olive-light:#8A9872;--clr-white:#FFFFFF;--clr-bg:#F6F5F0;--clr-bg-alt:#EEECE5;--clr-dark:#1A1C14;--clr-text:#1A1C14;--clr-text-soft:#5A5A48;--clr-border:#D8D4C6;--clr-surface:#FFFFFF;--ff-display:'Cormorant Garamond',Georgia,serif;--ff-body:'DM Sans',system-ui,sans-serif;--space-xs:.5rem;--space-sm:1rem;--space-md:2rem;--space-lg:4rem;--space-xl:7rem;--space-2xl:10rem;--container:1200px;--transition:.42s cubic-bezier(.4,0,.2,1);--transition-fast:.22s cubic-bezier(.4,0,.2,1)}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:80px}
+    body{font-family:var(--ff-body);font-weight:400;font-size:1rem;line-height:1.7;color:var(--clr-text);background:var(--clr-bg);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    img{display:block;max-width:100%;height:auto}
+    a{color:inherit;text-decoration:none}
+    button{font-family:var(--ff-body)}
+
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:var(--space-sm) var(--space-md);transition:background var(--transition),box-shadow var(--transition)}
+    .nav--scrolled{background:rgba(246,245,240,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 1px 0 var(--clr-border)}
+    .nav__inner{max-width:var(--container);margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .nav__logo{display:flex;align-items:center;gap:.625rem;z-index:1001}
+    .nav__logo img{height:28px;width:28px;object-fit:contain;flex-shrink:0;transition:filter var(--transition)}
+    .nav:not(.nav--scrolled) .nav__logo img{filter:brightness(0) invert(1)}
+    .nav__logo-name{font-family:var(--ff-body);font-size:.74rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;transition:color var(--transition);white-space:nowrap;line-height:1.1}
+    .nav__logo-name span{font-weight:300;letter-spacing:.1em;opacity:.8}
+    .nav:not(.nav--scrolled) .nav__logo-name{color:var(--clr-white)}
+    .nav--scrolled .nav__logo-name{color:var(--clr-text)}
+    .nav__menu{display:flex;align-items:center;gap:var(--space-lg)}
+    .nav__link{font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;transition:color var(--transition-fast)}
+    .nav:not(.nav--scrolled) .nav__link{color:rgba(255,255,255,.8)}
+    .nav:not(.nav--scrolled) .nav__link:hover{color:var(--clr-white)}
+    .nav--scrolled .nav__link{color:var(--clr-text-soft)}
+    .nav--scrolled .nav__link:hover{color:var(--clr-olive)}
+    .nav__link--active{color:var(--clr-olive)!important}
+    .nav__toggle{display:none;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:8px;z-index:1001}
+    .nav__toggle span{display:block;width:26px;height:1.5px;background:currentColor;transition:var(--transition);transform-origin:center}
+    .nav:not(.nav--scrolled) .nav__toggle{color:var(--clr-white)}
+    .nav--scrolled .nav__toggle{color:var(--clr-text)}
+    .nav__toggle--active span:nth-child(1){transform:rotate(45deg) translate(5px,5.5px)}
+    .nav__toggle--active span:nth-child(2){opacity:0;transform:scaleX(0)}
+    .nav__toggle--active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5.5px)}
+
+    /* REVEAL */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}
+
+    @media(max-width:768px){
+      .nav__toggle{display:flex}
+      .nav__menu{position:fixed;top:0;left:0;width:100%;height:100vh;height:100dvh;background:var(--clr-dark);flex-direction:column;align-items:center;justify-content:center;gap:3rem;opacity:0;pointer-events:none;transition:opacity var(--transition)}
+      .nav__menu--open{opacity:1;pointer-events:all}
+      .nav__menu .nav__link{font-family:var(--ff-display);font-size:clamp(2rem,8vw,3.5rem);font-weight:300;letter-spacing:.06em;color:rgba(255,255,255,.85)!important;text-transform:none}
+      .nav__menu .nav__link:hover{color:var(--clr-white)!important}
+    }
+  </style>
+
+  <link rel="stylesheet" media="print" onload="this.media='all';this.onload=null;" href="css/style.css">
+  <noscript><link rel="stylesheet" href="css/style.css"></noscript>
+</head>
+
+<body>
+
+  <!-- NAVEGACIÓN -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="ARQUMA Proyectos — Inicio">
+        <img src="img/logo.webp" alt="" width="28" height="28" loading="eager" aria-hidden="true">
+        <span class="nav__logo-name">ARQUMA <span>Proyectos</span></span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__menu" id="navMenu" aria-label="Menú principal">
+        <a href="index.html"     class="nav__link">Firma</a>
+        <a href="proyectos.html" class="nav__link nav__link--active">Proyectos</a>
+        <a href="contacto.html"  class="nav__link">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero" aria-label="Portada de proyectos">
+      <div class="page-hero__bg">
+        <img src="img/img12.webp" alt="" width="1920" height="800" loading="eager" fetchpriority="high" aria-hidden="true">
+      </div>
+      <div class="page-hero__content">
+        <span class="page-hero__label">Portafolio</span>
+        <h1 class="page-hero__title">Proyectos</h1>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="projects-section" aria-label="Galería de proyectos">
+
+      <!-- Filtro por tipología -->
+      <div class="filter-bar" role="group" aria-label="Filtrar por tipología">
+        <button class="filter-btn active" data-filter="todos" aria-pressed="true">Todos</button>
+        <button class="filter-btn" data-filter="residencial" aria-pressed="false">Residencial</button>
+        <button class="filter-btn" data-filter="comercial"   aria-pressed="false">Comercial</button>
+        <button class="filter-btn" data-filter="edificio"    aria-pressed="false">Edificio</button>
+      </div>
+
+      <!-- Cuadrícula de proyectos — 23 imágenes -->
+      <div class="projects-grid">
+
+        <!-- RESIDENCIAL (img1–img8) -->
+        <div class="project-item reveal" data-category="residencial">
+          <img src="img/img1.webp" alt="Residencia Bosque — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Residencia Bosque</h2>
+              <span class="project-overlay__meta">Residencial · 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal reveal--delay-1" data-category="residencial">
+          <img src="img/img2.webp" alt="Casa Privada Norte — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Casa Privada Norte</h2>
+              <span class="project-overlay__meta">Residencial · 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal" data-category="residencial">
+          <img src="img/img3.webp" alt="Villa del Lago — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Villa del Lago</h2>
+              <span class="project-overlay__meta">Residencial · 2023</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal reveal--delay-1" data-category="residencial">
+          <img src="img/img4.webp" alt="Casa Minimalista Sur — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Casa Minimalista Sur</h2>
+              <span class="project-overlay__meta">Residencial · 2023</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal" data-category="residencial">
+          <img src="img/img5.webp" alt="Penthouse Urbano — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Penthouse Urbano</h2>
+              <span class="project-overlay__meta">Residencial · 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal reveal--delay-1" data-category="residencial">
+          <img src="img/img6.webp" alt="Residencia de Campo — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Residencia de Campo</h2>
+              <span class="project-overlay__meta">Residencial · 2022</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal" data-category="residencial">
+          <img src="img/img7.webp" alt="Casa Patio — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Casa Patio</h2>
+              <span class="project-overlay__meta">Residencial · 2023</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal reveal--delay-1" data-category="residencial">
+          <img src="img/img8.webp" alt="Residencia Moderna — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Residencia Moderna</h2>
+              <span class="project-overlay__meta">Residencial · 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- COMERCIAL (img9–img16) -->
+        <div class="project-item reveal" data-category="comercial">
+          <img src="img/img9.webp" alt="Restaurante El Origen — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Restaurante El Origen</h2>
+              <span class="project-overlay__meta">Comercial · 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal reveal--delay-1" data-category="comercial">
+          <img src="img/img10.webp" alt="Café Terraza — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Café Terraza</h2>
+              <span class="project-overlay__meta">Comercial · 2023</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal" data-category="comercial">
+          <img src="img/img11.webp" alt="Bistró del Centro — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Bistró del Centro</h2>
+              <span class="project-overlay__meta">Comercial · 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal reveal--delay-1" data-category="comercial">
+          <img src="img/img12.webp" alt="Bar &amp; Lounge Norte — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Bar &amp; Lounge Norte</h2>
+              <span class="project-overlay__meta">Comercial · 2023</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal" data-category="comercial">
+          <img src="img/img13.webp" alt="Espacio Gastronómico — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Espacio Gastronómico</h2>
+              <span class="project-overlay__meta">Comercial · 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal reveal--delay-1" data-category="comercial">
+          <img src="img/img14.webp" alt="Restaurante Jardín — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Restaurante Jardín</h2>
+              <span class="project-overlay__meta">Comercial · 2023</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal" data-category="comercial">
+          <img src="img/img15.webp" alt="Food Hall Contemporáneo — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Food Hall Contemporáneo</h2>
+              <span class="project-overlay__meta">Comercial · 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal reveal--delay-1" data-category="comercial">
+          <img src="img/img16.webp" alt="Galería Culinaria — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Galería Culinaria</h2>
+              <span class="project-overlay__meta">Comercial · 2022</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- EDIFICIO (img17–img23) -->
+        <div class="project-item reveal" data-category="edificio">
+          <img src="img/img17.webp" alt="Torre Empresarial — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Torre Empresarial</h2>
+              <span class="project-overlay__meta">Edificio · 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal reveal--delay-1" data-category="edificio">
+          <img src="img/img18.webp" alt="Edificio Mixto — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Edificio Mixto</h2>
+              <span class="project-overlay__meta">Edificio · 2023</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal" data-category="edificio">
+          <img src="img/img19.webp" alt="Centro de Negocios — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Centro de Negocios</h2>
+              <span class="project-overlay__meta">Edificio · 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal reveal--delay-1" data-category="edificio">
+          <img src="img/img20.webp" alt="Torre Residencial — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Torre Residencial</h2>
+              <span class="project-overlay__meta">Edificio · 2023</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal" data-category="edificio">
+          <img src="img/img21.webp" alt="Complejo Corporativo — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Complejo Corporativo</h2>
+              <span class="project-overlay__meta">Edificio · 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal reveal--delay-1" data-category="edificio">
+          <img src="img/img22.webp" alt="Edificio Reforma — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Edificio Reforma</h2>
+              <span class="project-overlay__meta">Edificio · 2023</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-item reveal" data-category="edificio">
+          <img src="img/img23.webp" alt="Plaza Comercial — ARQUMA Proyectos" width="768" height="576" loading="lazy">
+          <div class="project-overlay">
+            <div class="project-overlay__info">
+              <h2 class="project-overlay__title">Plaza Comercial</h2>
+              <span class="project-overlay__meta">Edificio · 2024</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /projects-grid -->
+    </section>
+
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visor de imagen">
+    <button class="lightbox__close" aria-label="Cerrar">&#x2715;</button>
+    <button class="lightbox__prev"  aria-label="Imagen anterior">&#x2039;</button>
+    <img class="lightbox__img" src="" alt="" loading="eager">
+    <p class="lightbox__meta" aria-live="polite"></p>
+    <button class="lightbox__next"  aria-label="Imagen siguiente">&#x203A;</button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer" aria-label="Pie de página">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <a href="index.html" class="footer__logo-text" aria-label="ARQUMA Proyectos — Inicio">ARQUMA <span>Proyectos</span></a>
+        <p class="footer__tagline">Estudio de arquitectura — Diseño residencial, comercial y corporativo</p>
+      </div>
+      <nav class="footer__nav" aria-label="Navegación del pie">
+        <a href="index.html">Firma</a>
+        <a href="proyectos.html">Proyectos</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">&copy; 2025 ARQUMA Proyectos. Todos los derechos reservados.</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+
+</html>
